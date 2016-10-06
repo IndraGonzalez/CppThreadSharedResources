@@ -11,19 +11,34 @@ Reader::Reader(QObject *parent)
 
 void Reader::run()
 {
-	QFile file("//srv01/PracticasProgramacion/Datos/Kalman/20160809_141552.imu");
+	QFile file("//srv01/PracticasProgramacion/Datos/Kalman/20160809_141552.std");
 	//int count = 100000;
 	if (file.open(QIODevice::ReadOnly)) {
 		QDataStream in(&file);
+		in.setByteOrder(QDataStream::LittleEndian);
 		while ((!in.atEnd()) && (!stopReading)) {
+			
 			Value value;
+			int temp;
 			in >> value.time;
-			in >> value.spinX;
-			in >> value.spinY;
-			in >> value.spinZ;
-			in >> value.speedX;
-			in >> value.speedY;
-			in >> value.speedZ;
+			
+			in >> temp;
+			value.spinX = temp * 0.1;
+
+			in >> temp;
+			value.spinY = temp * 0.1;
+
+			in >> temp;
+			value.spinZ = temp * 0.1;
+		
+			in >> temp;
+			value.speedX = (temp * 0.05) / pow(2.0, 15.0);
+
+			in >> temp;
+			value.speedY = (temp * 0.05) / pow(2.0, 15.0);
+
+			in >> temp;
+			value.speedZ = (temp * 0.05) / pow(2.0, 15.0);
 
 			/*value.speedX = (value.speedX*pow(2, 15)) / 0.05;
 			value.speedY = (value.speedY*pow(2, 15)) / 0.05;
@@ -32,14 +47,6 @@ void Reader::run()
 			value.spinX = value.spinX / 0.1;
 			value.spinY = value.spinY / 0.1;
 			value.spinZ = value.spinZ / 0.1;*/
-
-			value.speedX = (value.speedX * 0.05) / pow(2, 15);
-			value.speedY = (value.speedX * 0.05) / pow(2, 15);
-			value.speedZ = (value.speedX * 0.05) / pow(2, 15);
-
-			value.spinX = value.spinX * 0.1;
-			value.spinY = value.spinY * 0.1;
-			value.spinZ = value.spinZ * 0.1;
 
 			//qDebug() << word;
 			

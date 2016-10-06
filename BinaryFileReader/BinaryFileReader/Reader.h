@@ -16,12 +16,12 @@ private:
 	struct Value
 	{
 		double time;
-		int spinX;
-		int spinY;
-		int spinZ;
-		int speedX;
-		int speedY;
-		int speedZ;
+		double spinX;
+		double spinY;
+		double spinZ;
+		double speedX;
+		double speedY;
+		double speedZ;
 	};
 	QList<Value> values;
 
