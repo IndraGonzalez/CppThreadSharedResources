@@ -12,7 +12,7 @@ Reader::Reader(QObject *parent)
 void Reader::run()
 {
 	QFile file("//srv01/PracticasProgramacion/Datos/Kalman/20160809_141552.std");
-	//int count = 100000;
+
 	if (file.open(QIODevice::ReadOnly)) {
 		QDataStream in(&file);
 		in.setByteOrder(QDataStream::LittleEndian);
@@ -39,25 +39,9 @@ void Reader::run()
 
 			in >> temp;
 			value.speedZ = (temp * 0.05) / pow(2.0, 15.0);
-
-			/*value.speedX = (value.speedX*pow(2, 15)) / 0.05;
-			value.speedY = (value.speedY*pow(2, 15)) / 0.05;
-			value.speedZ = (value.speedZ*pow(2, 15)) / 0.05;
-
-			value.spinX = value.spinX / 0.1;
-			value.spinY = value.spinY / 0.1;
-			value.spinZ = value.spinZ / 0.1;*/
-
-			//qDebug() << word;
 			
 			values.append(value);
-			
-			//words = file.readAll();
 
-			//char *temp = new char[count];
-			//in.readRawData(temp, count);
-			//words.append(temp, count);
-			//delete[] temp;
 		}
 	}
 
