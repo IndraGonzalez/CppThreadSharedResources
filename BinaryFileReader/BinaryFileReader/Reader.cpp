@@ -11,7 +11,7 @@ Reader::Reader(QObject *parent)
 
 void Reader::run()
 {
-	QFile file("//srv01/PracticasProgramacion/Datos/Kalman/20160809_141552.std");
+	QFile file("//srv01/PracticasProgramacion/Datos/Kalman/Set2/20160614_082114.std");
 
 	if (file.open(QIODevice::ReadOnly)) {
 		QDataStream in(&file);
@@ -21,7 +21,7 @@ void Reader::run()
 			Value value;
 			int temp;
 			in >> value.time;
-			
+
 			in >> temp;
 			value.spinX = temp * 0.1;
 
@@ -32,39 +32,46 @@ void Reader::run()
 			value.spinZ = temp * 0.1;
 		
 			in >> temp;
-			value.speedX = (temp * 0.05) / pow(2.0, 15.0);
+			value.speedX = ((double)temp * 0.05) / pow(2.0, 15.0);
+			//value.speedX = ((double)temp * pow(2.0, 15.0))/ 0.05 ;
 
 			in >> temp;
-			value.speedY = (temp * 0.05) / pow(2.0, 15.0);
+			value.speedY = ((double)temp * 0.05) / pow(2.0, 15.0);
+			//value.speedY = ((double)temp * pow(2.0, 15.0)) / 0.05;
 
 			in >> temp;
-			value.speedZ = (temp * 0.05) / pow(2.0, 15.0);
+			value.speedZ = ((double)temp * 0.05) / pow(2.0, 15.0);
+			//value.speedZ = ((double)temp * pow(2.0, 15.0)) / 0.05;
 			
 			values.append(value);
-
 		}
 	}
+	writeDataFile();
+}
 
-	for (int i = 0; i < values.size(); i++)
+
+void Reader::writeDataFile() {
+
+	QFile file("C:/Users/igonzalez/Desktop/DatosKalman/datosIMU.txt");
+	if (file.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
-		if (stopReading) break;
-		qDebug() << "_____________";
-		qDebug() << values[i].time;
-		qDebug() << values[i].spinX;
-		qDebug() << values[i].spinY;
-		qDebug() << values[i].spinZ;
-		qDebug() << values[i].speedX;
-		qDebug() << values[i].speedY;
-		qDebug() << values[i].speedZ;
+		QTextStream out(&file);
+			
+		for (int i = 0; i < values.size(); i++)
+		{
+				out.setRealNumberNotation(QTextStream::FixedNotation);
+				out.setRealNumberPrecision(3);
+				out << values[i].time << "\t";
+				out.setRealNumberPrecision(2);
+				out << values[i].spinX << "\t";
+				out << values[i].spinY << "\t";
+				out << values[i].spinZ << "\t";
+				out.setRealNumberPrecision(8);
+				out << values[i].speedX << "\t";
+				out << values[i].speedY << "\t";
+				out << values[i].speedZ << endl;
+		}
 	}
-	
+	file.close();
+	exit();
 }
-Reader::~Reader()
-{
-}
-
-void Reader::stop() 
-{
-	stopReading = true;
-}
-

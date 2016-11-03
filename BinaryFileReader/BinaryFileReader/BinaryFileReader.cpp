@@ -5,7 +5,5 @@ BinaryFileReader::BinaryFileReader(QWidget *parent)
 {
 	ui.setupUi(this);
 	reader = new Reader(this);
-
-	connect(ui.startButton, SIGNAL(clicked()), reader, SLOT(start()));
-	connect(ui.stopButton, SIGNAL(clicked()), reader, SLOT(stop()));
+	reader->start();
 }

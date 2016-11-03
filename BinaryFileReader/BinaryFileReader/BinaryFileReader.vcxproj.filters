@@ -34,12 +34,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BinaryFileReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="moc_BinaryFileReader.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="qrc_BinaryFileReader.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -49,11 +43,14 @@
     <ClCompile Include="Reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="moc_BinaryFileReader.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryFileReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="BinaryFileReader.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="BinaryFileReader.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -61,6 +58,9 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Reader.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BinaryFileReader.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

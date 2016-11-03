@@ -9,7 +9,6 @@ class Reader : public QThread
 
 public:
 	Reader(QObject *parent);
-	~Reader();
 
 private:
 	bool stopReading;
@@ -24,12 +23,11 @@ private:
 		double speedZ;
 	};
 	QList<Value> values;
+	void writeDataFile();
 
 protected:
 	void run() Q_DECL_OVERRIDE;
 
-public slots:
-	void stop();
 };
 
 
